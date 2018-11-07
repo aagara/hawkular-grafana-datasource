@@ -4,9 +4,14 @@ ENV GRAFANA_VERSION 4.1.2-1486989747
 ENV GF_PATHS_DATA /var/lib/grafana/data
 
 # Install grafana
-RUN yum install -y https://grafanarel.s3.amazonaws.com/builds/grafana-${GRAFANA_VERSION}.x86_64.rpm && \
-    yum install -y unzip && \
-    yum clean all
+#RUN yum install -y https://grafanarel.s3.amazonaws.com/builds/grafana-${GRAFANA_VERSION}.x86_64.rpm && \
+#    yum install -y unzip && \
+#    yum clean all
+
+RUN yum -y install unzip && yum clean all
+ADD /grafana-4.4.1-1.x86_64.rpm /grafana-4.4.1-1.x86_64.rpm
+
+RUN yum localinstall -y grafana-4.4.1-1.x86_64.rpm
 
 # Install hawkular-grafana-datasource latest github release
 RUN curl -L https://github.com/hawkular/hawkular-grafana-datasource/archive/release.zip -o hawkular-grafana-datasource-release.zip && \
